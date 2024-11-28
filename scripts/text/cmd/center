@@ -1,0 +1,10 @@
+#!/bin/bash
+short="this is short notation for center command" #Change the line to your desire output
+long="lomg description for center command" #Change the line to your desire output
+function main() {
+# this function will get called every time when this cmd is triggred --
+# write all your code related to this cmd here 
+# Your value for the this arg is stored in $1 
+echo "$1"
+    }
+main $1 
