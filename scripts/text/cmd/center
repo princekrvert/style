@@ -1,10 +1,13 @@
 #!/bin/bash
-short="this is short notation for center command" #Change the line to your desire output
-long="lomg description for center command" #Change the line to your desire output
-function main() {
+short="Align text to the center" #Change the line to your desire output
+long="This commnad is used to center the proviced text horizantally" #Change the line to your desire output
 # this function will get called every time when this cmd is triggred --
 # write all your code related to this cmd here 
 # Your value for the this arg is stored in $1 
-echo "$1"
-    }
-main $1 
+# the first arguments will be the text to output .. and then check for style file 
+# user wants to center the text it will stored in $1 
+text=${1}
+divider=$($COLUMNS)
+printf "%*s\n" "$(( (($(tput cols) +${#text})) /2 ))" "$text"
+
+
