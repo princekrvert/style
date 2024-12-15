@@ -5,7 +5,6 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/charmbracelet/lipgloss"
 	"github.com/spf13/cobra"
@@ -14,36 +13,45 @@ import (
 // textCmd represents the text command
 var textCmd = &cobra.Command{
 	Use:   "text",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Short: "This is used to print some text usign some advance options",
+	Long:  `Using this commnad you can print text with some rich functionality.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		align, _ := cmd.Flags().GetString("align")
 		bold, _ := cmd.Flags().GetBool("bold")
 		bgcolor, _ := cmd.Flags().GetString("bgcolor")
 		fcolor, _ := cmd.Flags().GetString("fcolor")
 		width, _ := cmd.Flags().GetInt("width")
-		// check align var if it is valid
-		if align == "left" || align == "center" || align == "right" {
-			fmt.Printf("")
-		} else {
-			fmt.Println("\033[31;1m Please provide the valid value for align")
-			os.Exit(1)
-		}
-
-		// here we have to define aling full var
-		//Align := "lipgloss." + align
+		// define your style here
 		var style = lipgloss.NewStyle().
 			Bold(bold).
 			Foreground(lipgloss.Color(bgcolor)).
 			Background(lipgloss.Color(fcolor)).
-			Align(lipgloss.Left).
+			Align(lipgloss.Center).
 			Width(width)
-		fmt.Println(style.Render(args[0]))
+		// check align var if it is valid
+		if align == "center" {
+			// inherit the property of style
+			var stylec = lipgloss.NewStyle().
+				Align(lipgloss.Center).
+				Inherit(style)
+			fmt.Println(stylec.Render(args[0]))
+		} else if align == "right" {
+			// inherit the property of style
+			var styler = lipgloss.NewStyle().
+				Align(lipgloss.Right).
+				Inherit(style)
+			fmt.Println(styler.Render(args[0]))
+		} else if align == "left" {
+			// inherit the property of style
+			var stylel = lipgloss.NewStyle().
+				Align(lipgloss.Left).
+				Inherit(style)
+			fmt.Println(stylel.Render(args[0]))
+		} else {
+			fmt.Println(style.Render(args[0]))
+		}
+		// here we have to define aling full var
+		//Align := "lipgloss." + align
 
 	},
 }
@@ -60,7 +68,7 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// Add subcommands here
-	textCmd.Flags().StringP("align", "a", "left", "Alignment of text")
+	textCmd.Flags().StringP("align", "a", "", "Alignment of text")
 	textCmd.Flags().BoolP("bold", "b", false, "It makes text bold")
 	textCmd.Flags().StringP("bgcolor", "o", " ", "Define a background colour")
 	textCmd.Flags().StringP("fcolor", "f", " ", "Foreground a background colour")
