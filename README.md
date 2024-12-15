@@ -1,5 +1,5 @@
 
-## copy and paste the following command 
+## Installation 
 
 *`apt update && apt upgrade`
 
