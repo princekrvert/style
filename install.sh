@@ -13,8 +13,7 @@ if [[ $check_os == "GNU/Linux" ]];then
     go install 
 elif [[ $check_os == "Android" ]]; then 
     # install the go for android ..
-    go build -o style 
-    go install
+    go build 
     mv style /data/data/com.termux/files/usr/bin
 else 
     echo ""
