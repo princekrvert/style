@@ -21,12 +21,16 @@ var textCmd = &cobra.Command{
 		bgcolor, _ := cmd.Flags().GetString("bgcolor")
 		fcolor, _ := cmd.Flags().GetString("fcolor")
 		width, _ := cmd.Flags().GetInt("width")
+		ptop, _ := cmd.Flags().GetInt("ptop")
+		pleft, _ := cmd.Flags().GetInt("pleft")
 		// define your style here
 		var style = lipgloss.NewStyle().
 			Bold(bold).
 			Foreground(lipgloss.Color(bgcolor)).
 			Background(lipgloss.Color(fcolor)).
 			Align(lipgloss.Center).
+			PaddingTop(ptop).
+			PaddingLeft(pleft).
 			Width(width)
 		// check align var if it is valid
 		if align == "center" {
@@ -72,6 +76,8 @@ func init() {
 	textCmd.Flags().BoolP("bold", "b", false, "It makes text bold")
 	textCmd.Flags().StringP("bgcolor", "o", " ", "Define a background colour")
 	textCmd.Flags().StringP("fcolor", "f", " ", "Foreground a background colour")
-	textCmd.Flags().IntP("Width", "w", 0, "Define width")
+	textCmd.Flags().IntP("width", "w", 0, "Width of text ")
+	textCmd.Flags().IntP("ptop", "t", 0, "Padding top")
+	textCmd.Flags().IntP("pleft", "p", 0, "Padding left")
 
 }
